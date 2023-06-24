@@ -9,7 +9,6 @@ import java.sql.Connection;
 
 public class MedicosController extends Controller {
     public MedicosController(PostgreConnection conn) {
-        super(conn);
         this.model = new MedicosModel(conn);
     }
 
