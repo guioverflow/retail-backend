@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public abstract class Controller {
     protected Model model;
 
-    public MedicosBean select(int id) throws SQLException {
-        return (MedicosBean) this.model.select(id);
+    public Object select(int id) throws SQLException {
+        return this.model.select(id);
     }
 }

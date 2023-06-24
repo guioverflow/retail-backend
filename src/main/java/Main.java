@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         PostgreConnection postgreConn = new PostgreConnection();
         MedicosController medTeste = new MedicosController(postgreConn);
-        MedicosBean bean = medTeste.select(1);
+        MedicosBean bean = (MedicosBean) medTeste.select(1);
         System.out.println(bean.getNome());
     }
 }
