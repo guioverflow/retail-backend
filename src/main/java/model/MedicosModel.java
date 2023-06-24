@@ -19,12 +19,17 @@ public class MedicosModel extends Model {
     }
 
     @Override
+    public void update(Object obj) {
+
+    }
+
+    @Override
     public void delete(Object obj) {
 
     }
 
     @Override
-    public MedicosBean select(int id) throws SQLException {
+    public MedicosBean selectById(int id) throws SQLException {
         PreparedStatement statement;
 
         statement = conn.getConnection().prepareStatement("""

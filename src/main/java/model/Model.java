@@ -16,6 +16,7 @@ public abstract class Model {
 
     public abstract void insert (Object obj);
     public abstract void delete (Object obj);
-    public abstract Object select (int id) throws SQLException;
+    public abstract void update (Object obj);
 
+    public abstract Object selectById (int id) throws SQLException;
 }
