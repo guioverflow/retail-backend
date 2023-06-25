@@ -1,13 +1,11 @@
-package model;
+package com.atacadista.model;
 
-import bean.MedicosBean;
-import bean.ProdutoBean;
-import database.PostgreConnection;
+import com.atacadista.bean.MedicosBean;
+import com.atacadista.database.PostgreConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class MedicosModel extends Model {
 

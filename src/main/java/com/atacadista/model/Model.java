@@ -1,11 +1,9 @@
-package model;
+package com.atacadista.model;
 
 
-import bean.ProdutoBean;
-import database.PostgreConnection;
+import com.atacadista.database.PostgreConnection;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public abstract class Model {
 

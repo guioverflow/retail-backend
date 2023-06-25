@@ -1,4 +1,4 @@
-package bean;
+package com.atacadista.bean;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,10 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class DescritivoVendaBean {
-    public int idVendaProduto;
-    public VendaBean venda;
+public class EstoqueBean {
+    public EstabelecimentoBean estabelecimento;
     public ProdutoBean produto;
     public int quantidade;
-    public float valorUnitario;
 }

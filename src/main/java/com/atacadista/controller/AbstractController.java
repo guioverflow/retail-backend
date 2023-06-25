@@ -1,10 +1,12 @@
-package controller;
+package com.atacadista.controller;
 
-import model.Model;
+import com.atacadista.database.PostgreConnection;
+import com.atacadista.model.Model;
 
 import java.sql.SQLException;
 
-public abstract class Controller {
+public abstract class AbstractController {
+    protected PostgreConnection postConn;
     protected Model model;
 
     public abstract void insert() throws SQLException;

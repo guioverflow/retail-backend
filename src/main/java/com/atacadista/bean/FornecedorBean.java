@@ -1,4 +1,4 @@
-package bean;
+package com.atacadista.bean;
 
 import lombok.Builder;
 import lombok.Getter;

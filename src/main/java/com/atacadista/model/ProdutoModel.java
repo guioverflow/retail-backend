@@ -1,7 +1,7 @@
-package model;
+package com.atacadista.model;
 
-import bean.ProdutoBean;
-import database.PostgreConnection;
+import com.atacadista.bean.ProdutoBean;
+import com.atacadista.database.PostgreConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

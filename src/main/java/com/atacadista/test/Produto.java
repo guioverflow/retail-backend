@@ -1,21 +1,17 @@
+package com.atacadista.test;
+
+import com.atacadista.bean.ProdutoBean;
+import com.atacadista.database.PostgreConnection;
+import com.atacadista.model.ProdutoModel;
+
 import java.sql.SQLException;
 import java.util.List;
 
-import bean.MedicosBean;
-import bean.ProdutoBean;
-import com.sun.tools.jconsole.JConsoleContext;
-import controller.MedicosController;
-import database.PostgreConnection;
-import model.ProdutoModel;
 
-//@SpringBootApplication
-public class Main {
+public class Produto {
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         PostgreConnection postgreConn = new PostgreConnection();
-        //MedicosController medTeste = new MedicosController(postgreConn);
-        //MedicosBean bean = (MedicosBean) medTeste.selectById(1);
-        //System.out.println(bean.getNome());
 
         ProdutoModel model = new ProdutoModel(postgreConn);
 

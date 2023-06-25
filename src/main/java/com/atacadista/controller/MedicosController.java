@@ -1,10 +1,10 @@
-package controller;
+package com.atacadista.controller;
 
-import database.PostgreConnection;
-import model.MedicosModel;
+import com.atacadista.database.PostgreConnection;
+import com.atacadista.model.MedicosModel;
 import java.sql.SQLException;
 
-public class MedicosController extends Controller {
+public class MedicosController extends AbstractController {
     public MedicosController(PostgreConnection conn) {
         this.model = new MedicosModel(conn);
     }
