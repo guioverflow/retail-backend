@@ -1,11 +1,7 @@
 package controller;
 
-import bean.MedicosBean;
 import database.PostgreConnection;
 import model.MedicosModel;
-import model.Model;
-
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class MedicosController extends Controller {

@@ -1,11 +1,13 @@
 package model;
 
 import bean.MedicosBean;
+import bean.ProdutoBean;
 import database.PostgreConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class MedicosModel extends Model {
 
@@ -14,25 +16,26 @@ public class MedicosModel extends Model {
     }
 
     @Override
-    public void insert(Object obj) {
-
+    public boolean insert(Object obj) {
+        return false;
     }
 
     @Override
-    public void update(Object obj) {
-
+    public Object update(int id, Object obj) {
+        return null;
     }
 
     @Override
-    public void delete(Object obj) {
+    public Object delete(int id) {
 
+        return null;
     }
 
     @Override
     public MedicosBean selectById(int id) throws SQLException {
         PreparedStatement statement;
 
-        statement = conn.getConnection().prepareStatement("""
+        statement = postConn.getConnection().prepareStatement("""
             SELECT codm, nome, idade
             FROM public.medicos
             WHERE codm = ?

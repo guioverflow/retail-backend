@@ -1,22 +1,24 @@
 package model;
 
 
+import bean.ProdutoBean;
 import database.PostgreConnection;
 
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public abstract class Model {
 
-    protected final PostgreConnection conn;
+    protected final PostgreConnection postConn;
 
     public Model(PostgreConnection conn) {
-        this.conn = conn;
+        this.postConn = conn;
     }
 
-    public abstract void insert (Object obj);
-    public abstract void delete (Object obj);
-    public abstract void update (Object obj);
+    public abstract boolean insert (Object obj) throws SQLException;
+    public abstract Object delete (int id) throws SQLException;
+    public abstract Object update (int id, Object obj) throws SQLException;
 
     public abstract Object selectById (int id) throws SQLException;
+    //public abstract List<Object> selectAll () throws SQLException;
 }

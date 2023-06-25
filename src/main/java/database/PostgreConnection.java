@@ -9,7 +9,7 @@ public class PostgreConnection {
     private final Connection conn;
 
     public PostgreConnection () throws ClassNotFoundException, SQLException {
-        final String jdbcUrl = "jdbc:postgresql://localhost:5432/exe-view";
+        final String jdbcUrl = "jdbc:postgresql://localhost:5432/db_atacadista";
         final String driver = "org.postgresql.Driver";
         final String user = "postgres";
         final String password = "123";
