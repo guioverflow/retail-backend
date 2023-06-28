@@ -9,7 +9,7 @@ import lombok.Setter;
 @Builder
 public class DescritivoVendaBean {
     public int idVendaProduto;
-    public VendaBean venda;
+    //public VendaBean venda;
     public ProdutoBean produto;
     public int quantidade;
     public float valorUnitario;

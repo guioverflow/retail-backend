@@ -1,4 +1,4 @@
-package com.atacadista.main;
+package com.atacadista;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @SpringBootApplication
-@ComponentScan({"com.atacadista.*"})
 @RestController
 public class AtacadistaApp {
 

@@ -4,14 +4,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Builder
 public class VendaBean {
     public int idVenda;
-    public Date dataVenda;
+    public LocalDateTime dataVenda;
     public EstabelecimentoBean estabelecimento;
     public FuncionarioBean funcionario;
 }

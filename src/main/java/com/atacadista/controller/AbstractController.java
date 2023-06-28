@@ -1,22 +1,22 @@
 package com.atacadista.controller;
 
-import com.atacadista.model.AbstractModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public abstract class AbstractController<beanType> {
-    protected AbstractModel<beanType> model;
+public abstract class AbstractController<requestType, responseType> {
 
-    public abstract ResponseEntity<String> insert(@RequestBody beanType bean) throws SQLException;
+    // CREATE
+    public abstract void insert(@RequestBody requestType data);
 
-    public abstract ResponseEntity<beanType> delete(@PathVariable int id) throws SQLException;
-    public abstract ResponseEntity<beanType> update(@PathVariable int id, @RequestBody beanType produto) throws SQLException;
+    // READ
+    public abstract List<responseType> selectAll();
+    public abstract responseType selectById(@PathVariable int id);
 
-    public abstract ResponseEntity<beanType> selectById(int id) throws SQLException;
-    public abstract ResponseEntity<List<beanType>> getAll() throws SQLException;
+    // UPDATE
+    public abstract responseType update(@PathVariable int id, @RequestBody requestType requestDTO);
+
+    // DELETE
+    public abstract void deleteById(@PathVariable int id);
 }
