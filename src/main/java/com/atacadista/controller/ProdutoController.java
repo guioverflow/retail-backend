@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/produtos")
-public class ProdutoController extends AbstractController<ProdutoRequestDTO, ProdutoResponseDTO> {
+public class ProdutoController extends AbstractController<ProdutoRequestDTO, ProdutoResponseDTO, Integer> {
 
     @Autowired
     private ProdutoRepository repository;
@@ -23,11 +23,8 @@ public class ProdutoController extends AbstractController<ProdutoRequestDTO, Pro
     @PostMapping
     @Override
     public void insert(@RequestBody ProdutoRequestDTO data) {
-
         ProdutoBean produtoData = new ProdutoBean(data);
         repository.save(produtoData);
-
-        return;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -43,10 +40,10 @@ public class ProdutoController extends AbstractController<ProdutoRequestDTO, Pro
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     @Override
-    public ProdutoResponseDTO selectById(@PathVariable int id) {
+    public ProdutoResponseDTO selectById(@PathVariable Integer id) {
         ProdutoBean produtoBean = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Fornecedor não encontrado com ID: " + id
+                        HttpStatus.NOT_FOUND, "Produto não encontrado com ID: " + id
                 ));
         return new ProdutoResponseDTO(produtoBean);
     }
@@ -54,24 +51,23 @@ public class ProdutoController extends AbstractController<ProdutoRequestDTO, Pro
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     @Override
-    public void deleteById(@PathVariable int id) {
+    public void deleteById(@PathVariable Integer id) {
         repository.deleteById(id);
-        return;
     }
 
     @PutMapping("/{id}")
     @Override
-    public ProdutoResponseDTO update(@PathVariable int id, @RequestBody ProdutoRequestDTO ProdutoRequestDTO) {
+    public ProdutoResponseDTO update(@PathVariable Integer id, @RequestBody ProdutoRequestDTO ProdutoRequestDTO) {
         ProdutoBean produtoBean = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Fornecedor não encontrado com ID: " + id
+                        HttpStatus.NOT_FOUND, "Produto não encontrado com ID: " + id
                 ));
 
         produtoBean.setNome(ProdutoRequestDTO.nome());
         produtoBean.setDescricao(ProdutoRequestDTO.descricao());
 
-        ProdutoBean updatedFornecedor = repository.save(produtoBean);
+        ProdutoBean updatedProduto = repository.save(produtoBean);
 
-        return new ProdutoResponseDTO(updatedFornecedor);
+        return new ProdutoResponseDTO(updatedProduto);
     }
 }

@@ -5,18 +5,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-public abstract class AbstractController<requestType, responseType> {
+public abstract class AbstractController<requestType, responseType, identificator> {
 
     // CREATE
     public abstract void insert(@RequestBody requestType data);
 
     // READ
     public abstract List<responseType> selectAll();
-    public abstract responseType selectById(@PathVariable int id);
+    public abstract responseType selectById(@PathVariable identificator id);
 
     // UPDATE
-    public abstract responseType update(@PathVariable int id, @RequestBody requestType requestDTO);
+    public abstract responseType update(@PathVariable identificator id, @RequestBody requestType requestDTO);
 
     // DELETE
-    public abstract void deleteById(@PathVariable int id);
+    public abstract void deleteById(@PathVariable identificator id);
 }

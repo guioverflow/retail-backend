@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("fornecedores")
-public class FornecedorController extends AbstractController<FornecedorRequestDTO, FornecedorResponseDTO> {
+public class FornecedorController extends AbstractController<FornecedorRequestDTO, FornecedorResponseDTO, Integer> {
 
     @Autowired
     private FornecedorRepository repository;
@@ -23,11 +23,8 @@ public class FornecedorController extends AbstractController<FornecedorRequestDT
     @PostMapping
     @Override
     public void insert(@RequestBody FornecedorRequestDTO data) {
-
         FornecedorBean fornecedorData = new FornecedorBean(data);
         repository.save(fornecedorData);
-
-        return;
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -43,7 +40,7 @@ public class FornecedorController extends AbstractController<FornecedorRequestDT
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping("/{id}")
     @Override
-    public FornecedorResponseDTO selectById(@PathVariable int id) {
+    public FornecedorResponseDTO selectById(@PathVariable Integer id) {
         FornecedorBean fornecedorBean = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Fornecedor não encontrado com ID: " + id
@@ -54,14 +51,13 @@ public class FornecedorController extends AbstractController<FornecedorRequestDT
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @DeleteMapping("/{id}")
     @Override
-    public void deleteById(@PathVariable int id) {
+    public void deleteById(@PathVariable Integer id) {
         repository.deleteById(id);
-        return;
     }
 
     @PutMapping("/{id}")
     @Override
-    public FornecedorResponseDTO update(@PathVariable int id, @RequestBody FornecedorRequestDTO fornecedorRequestDTO) {
+    public FornecedorResponseDTO update(@PathVariable Integer id, @RequestBody FornecedorRequestDTO fornecedorRequestDTO) {
         FornecedorBean fornecedorBean = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Fornecedor não encontrado com ID: " + id
