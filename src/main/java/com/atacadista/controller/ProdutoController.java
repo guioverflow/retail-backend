@@ -4,41 +4,62 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.atacadista.bean.ProdutoBean;
-import com.atacadista.database.PostgreConnection;
 import com.atacadista.model.ProdutoModel;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/produto")
-public class ProdutoController extends AbstractController {
-    PostgreConnection postConn = new PostgreConnection();
-    ProdutoModel model = new ProdutoModel(postConn);
+@RequestMapping("/produtos")
+public class ProdutoController extends AbstractController<ProdutoBean> {
 
-    public ProdutoController() throws SQLException, ClassNotFoundException {
-
-    }
+    ProdutoModel model = new ProdutoModel();
 
     @GetMapping
-    public List<ProdutoBean> getAll() throws SQLException {
-        return model.selectAll();
+    @Override
+    public ResponseEntity<List<ProdutoBean>> getAll() throws SQLException {
+        List<ProdutoBean> productList = model.selectAll();
+
+        if (productList != null)
+            return new ResponseEntity<>(productList, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
+    @PostMapping
     @Override
-    public void insert() throws SQLException {
-
+    public ResponseEntity<String> insert(@RequestBody ProdutoBean produto) throws SQLException {
+        boolean wasInserted = model.insert(produto);
+        if (wasInserted)
+            return new ResponseEntity<>("Produto inserido com sucesso.", HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/{id}")
     @Override
-    public void delete() throws SQLException {
+    public ResponseEntity<ProdutoBean> selectById(@PathVariable int id) throws SQLException {
+        ProdutoBean selectedProduto = model.selectById(id);
 
+        if (selectedProduto != null)
+            return new ResponseEntity<>(selectedProduto, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping("/{id}")
     @Override
-    public void update() throws SQLException {
+    public ResponseEntity<ProdutoBean> delete(@PathVariable int id) throws SQLException {
+        ProdutoBean deletedBean = model.delete(id);
+        if (deletedBean != null)
+            return new ResponseEntity<>(deletedBean, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
 
+    @PutMapping("/{id}")
+    @Override
+    public ResponseEntity<ProdutoBean> update(@PathVariable int id, @RequestBody ProdutoBean produto) throws SQLException {
+        ProdutoBean updatedBean = model.update(id, produto);
+
+        if (updatedBean != null)
+            return new ResponseEntity<>(updatedBean, HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 }

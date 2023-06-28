@@ -13,7 +13,7 @@ public class Produto {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         PostgreConnection postgreConn = new PostgreConnection();
 
-        ProdutoModel model = new ProdutoModel(postgreConn);
+        ProdutoModel model = new ProdutoModel();
 
         // Teste Select By Id
         ProdutoBean bean = (ProdutoBean) model.selectById(2);

@@ -1,45 +1,40 @@
 package com.atacadista.model;
 
 import com.atacadista.bean.ProdutoBean;
-import com.atacadista.database.PostgreConnection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoModel extends Model {
-    public ProdutoModel(PostgreConnection conn) {
-        super(conn);
-    }
+public class ProdutoModel extends AbstractModel<ProdutoBean> {
 
     @Override
-    public boolean insert(Object objBean) throws SQLException {
+    public boolean insert(ProdutoBean produto) throws SQLException {
         PreparedStatement statement;
-        ProdutoBean bean = (ProdutoBean) objBean;
 
-        if (bean == null)
+        if (produto == null)
             return false;
 
         statement = postConn.getConnection().prepareStatement("""
-            INSERT INTO public.produtos
+            INSERT INTO public.produtos (nome, descricao)
             VALUES (?, ?)
         """);
 
-        statement.setString(1, bean.getNome());
-        statement.setString(2, bean.getDescricao());
-        statement.execute();
+        statement.setString(1, produto.getNome());
+        statement.setString(2, produto.getDescricao());
 
-        return true;
+        int linhasAtualizadas = statement.executeUpdate();
+
+        return linhasAtualizadas >= 1;
     }
 
     @Override
-    public Object delete(int id) throws SQLException {
+    public ProdutoBean delete(int id) throws SQLException {
         PreparedStatement statement;
-        ProdutoBean bean = (ProdutoBean) selectById(id);
+        ProdutoBean beanAnterior = selectById(id);
 
-        if (bean == null)
+        if (beanAnterior == null)
             return null;
 
         statement = postConn.getConnection().prepareStatement("""
@@ -48,20 +43,21 @@ public class ProdutoModel extends Model {
         """);
 
         statement.setInt(1, id);
-        statement.execute();
+        int linhasAtualizadas = statement.executeUpdate();
 
-        return bean;
+        if (linhasAtualizadas < 1)
+            return null;
+
+        return beanAnterior;
     }
 
     @Override
-    public Object update(int id, Object beanObj) throws SQLException {
+    public ProdutoBean update(int id, ProdutoBean produto) throws SQLException {
         PreparedStatement statement;
-        ProdutoBean beanAnterior = (ProdutoBean) selectById(id);
+        ProdutoBean beanAnterior = selectById(id);
 
         if (beanAnterior == null)
             return null;
-
-        ProdutoBean bean = (ProdutoBean) beanObj;
 
         statement = postConn.getConnection().prepareStatement("""
             UPDATE public.produtos
@@ -71,16 +67,20 @@ public class ProdutoModel extends Model {
             WHERE id_produto = ?
         """);
 
-        statement.setString(1, bean.getNome());
-        statement.setString(2, bean.getDescricao());
+        statement.setString(1, produto.getNome());
+        statement.setString(2, produto.getDescricao());
         statement.setInt(3, id);
-        statement.executeUpdate();
+
+        int linhasAtualizadas = statement.executeUpdate();
+
+        if (linhasAtualizadas < 1)
+            return null;
 
         return beanAnterior;
     }
 
     @Override
-    public Object selectById(int id) throws SQLException {
+    public ProdutoBean selectById(int id) throws SQLException {
         PreparedStatement statement;
 
         statement = postConn.getConnection().prepareStatement("""
@@ -103,6 +103,7 @@ public class ProdutoModel extends Model {
             return null;
     }
 
+    @Override
     public List<ProdutoBean> selectAll() throws SQLException {
         PreparedStatement statement;
 
